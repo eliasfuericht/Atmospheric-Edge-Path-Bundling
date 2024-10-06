@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     // Fetch the CSV file
-    fetch('/small.csv')
+    fetch('/medium.csv')
       .then((response) => response.text())
       .then((csvText) => {
         // Parse CSV data
@@ -21,7 +21,7 @@ function App() {
               startLng: parseFloat(flight['Source_Longitude']),
               endLat: parseFloat(flight['Destination_Latitude']),
               endLng: parseFloat(flight['Destination_Longitude']),
-              color: ['blue', 'green'], // You can customize the colors
+              color: ['white', 'white'], // You can customize the colors
             }));
 
             setArcsData(formattedData);
@@ -34,9 +34,6 @@ function App() {
     <Globe
       arcsData={arcsData}
       arcColor={(d) => d.color}
-      arcDashLength={0.4}
-      arcDashGap={1}
-      arcDashAnimateTime={1500}
       globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
     />
   );
