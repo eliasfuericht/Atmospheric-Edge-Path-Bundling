@@ -1,8 +1,11 @@
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import Papa, {ParseResult} from 'papaparse';
+import {F} from 'vite/dist/node/types.d-aGj9QkWt';
 
-type FlightData = {
+export type FlightData = {
     index: string;
+    Source_airport: string;
+    Destination_airport: string;
     Source_Latitude: string;
     Source_Longitude: string;
     Destination_Latitude: string;
@@ -17,29 +20,27 @@ type Flight = {
     color: string[];
 };
 
-function useDataParsing() {
-    const [data, setData] = useState<Flight[]>([]);
+function useDataParsing( file: string): FlightData[] {
 
-    const parseData = useCallback((csvText: any) => {
-        Papa.parse(csvText, {
+    const [parsedData, setParsedData] = useState<FlightData[]>([]);
+
+    const parseData = useCallback((csvText: string) => {
+        Papa.parse<FlightData>(csvText, {
             header: true,
-            complete: (result  : ParseResult<FlightData>) => {
-                const parsedData = result.data;
-
-                const formattedData: Flight[] = parsedData.map((flight: FlightData) => ({
-                    startLat: flight.Source_Latitude,
-                    startLng: flight.Source_Longitude,
-                    endLat: flight.Destination_Latitude,
-                    endLng: flight.Destination_Longitude,
-                    color: ['white', 'white'],
-                }));
-
-                setData(formattedData);
+            complete: (result: ParseResult<FlightData>) => {
+                setParsedData(result.data);
             },
         });
     }, []);
 
-    return {parseData, data};
+    useEffect(() => {
+        fetch(file)
+            .then((response) => response.text())
+            .then(parseData)
+            .catch((error) => console.error('Error parsing data:', error));
+    }, [file, parseData]);
+
+    return parsedData;
 }
 
 export default useDataParsing;
