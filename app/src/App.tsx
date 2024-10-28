@@ -1,38 +1,19 @@
-import { useState, useEffect } from 'react';
+import {useEffect} from 'react';
 import Globe from 'react-globe.gl';
-import Papa from 'papaparse';
+import useDataParsing from './useDataParsing.tsx';
 
 function App() {
-  const [arcsData, setArcsData] = useState<any[]>([]);
+  const { data, parseData } = useDataParsing();
 
   useEffect(() => {
-    // Fetch the CSV file
     fetch('/medium.csv')
-      .then((response) => response.text())
-      .then((csvText) => {
-        // Parse CSV data
-        Papa.parse(csvText, {
-          header: true,
-          complete: (result) => {
-            const parsedData = result.data;
-
-            const formattedData = parsedData.map((flight: any) => ({
-              startLat: parseFloat(flight['Source_Latitude']),
-              startLng: parseFloat(flight['Source_Longitude']),
-              endLat: parseFloat(flight['Destination_Latitude']),
-              endLng: parseFloat(flight['Destination_Longitude']),
-              color: ['white', 'white'], // You can customize the colors
-            }));
-
-            setArcsData(formattedData);
-          },
-        });
-      });
+        .then(response => response.text())
+        .then(parseData);
   }, []);
 
   return (
     <Globe
-      arcsData={arcsData}
+      arcsData={data}
       arcColor={(d) => d.color}
       globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
     />
