@@ -1,12 +1,11 @@
-import useDijkstra from './useDijkstra.tsx';
-import {Node, Edge, FlightPath} from './useNodesAndEdges.tsx';
-import useGetControlPoints from './useGetControlPoints.tsx';
+import {Edge, FlightPath, Node} from '../EdgeBundling.types.ts';
+import {useCallback, useMemo} from 'react';
+import {dijkstra} from '../utils/ShortestPathAlgorithmus.ts';
+import {getControlPoints} from '../utils/ControlPoints.ts';
 
-function useEdgeBundling() {
-    const { findShortestPath } = useDijkstra();
-    const { getControlPoints } = useGetControlPoints();
+function useEdgeBundling(nodesMap: Map<string, Node>, edges: Edge[]) {
 
-    function edgeBundling(nodesMap: Map<string, Node>, edges: Edge[]): FlightPath[] {
+    const edgeBundling = useCallback((nodesMap: Map<string, Node>, edges: Edge[]): FlightPath[] => {
         const controlPointLists: FlightPath[] = [];
         const k = 2.0; // Detour factor
         const smoothing = 2;
@@ -21,7 +20,7 @@ function useEdgeBundling() {
             const source = edge.source;
             const dest = edge.destination;
 
-            const path = findShortestPath(source, dest);
+            const path = dijkstra(source, dest);
 
             if (path.length === 0) {
                 noPath += 1;
@@ -51,9 +50,11 @@ function useEdgeBundling() {
         }
 
         return controlPointLists;
-    }
+    }, [dijkstra, getControlPoints]);
 
-    return { edgeBundling };
+    return useMemo(() => {
+        return edgeBundling(nodesMap, edges);
+    }, [nodesMap, edges, edgeBundling]);
 
 }
 export default useEdgeBundling;

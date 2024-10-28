@@ -1,6 +1,5 @@
-import {useCallback, useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import Papa, {ParseResult} from 'papaparse';
-import {F} from 'vite/dist/node/types.d-aGj9QkWt';
 
 export type FlightData = {
     index: string;
