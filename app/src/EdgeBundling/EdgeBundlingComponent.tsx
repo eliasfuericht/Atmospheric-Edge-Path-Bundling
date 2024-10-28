@@ -6,8 +6,12 @@ import Globe from 'react-globe.gl';
 import {useMemo, useRef} from 'react';
 import * as THREE from 'three';
 
+function calculateDistance(coord1: THREE.Vector3, coord2: THREE.Vector3): number {
+    return coord1.distanceTo(coord2);
+}
+
 function EdgeBundlingComponent() {
-    const parseData: FlightData[] = useDataParsing('/small.csv');
+    const parseData: FlightData[] = useDataParsing('/medium.csv');
     const { nodesMap, edges} = useNodesAndEdges(parseData);
     const flightPaths: FlightPath[] = useEdgeBundling(nodesMap, edges);
     const globeEl = useRef();
@@ -16,45 +20,82 @@ function EdgeBundlingComponent() {
 
     const globe = useMemo(() => {
         return <Globe
-                ref={globeEl}
-                customLayerData={flightPaths}
-                customThreeObject={(flightPath) => {
-                const material = new THREE.LineBasicMaterial({ color: THREE.Color.NAMES.blue, linewidth: 3 });
+            ref={globeEl}
+            customLayerData={flightPaths}
+            customThreeObject={(flightPath) => {
+                const material = new THREE.LineBasicMaterial({ color: flightPath.color, linewidth: 3 });
                 const geometry = new THREE.BufferGeometry();
 
-                const coords = flightPath.coords.map(coord => {
-                const { lat, lng } = coord;
-                if (!globeEl.current) return new THREE.Vector3(0, 0, 0);
-                const globeCoords = globeEl.current.getCoords(lat, lng, 0.1); // Adjust altitude if needed
-                return new THREE.Vector3(globeCoords.x, globeCoords.y, globeCoords.z);
-            });
+                const points: THREE.Vector3[] = [];
+                const numSegments = 50; // Controls the smoothness of the curve
 
-                // Create line segments from the coordinates
-                const lineSegments = [];
-                for (let i = 0; i < coords.length - 1; i++) {
-                lineSegments.push(coords[i], coords[i + 1]);
-            }
+                for (let i = 0; i < flightPath.coords.length - 1; i++) {
+                    const startCoord = flightPath.coords[i];
+                    const endCoord = flightPath.coords[i + 1];
 
-                geometry.setFromPoints(lineSegments);
-                return new THREE.LineSegments(geometry, material);
+                    // Start and end positions
+                    const start = globeEl.current.getCoords(startCoord.lat, startCoord.lng, 0);
+                    const end = globeEl.current.getCoords(endCoord.lat, endCoord.lng, 0);
+
+                    // Calculate the distance between the start and end points
+                    const distance = calculateDistance(
+                        new THREE.Vector3(start.x, start.y, start.z),
+                        new THREE.Vector3(end.x, end.y, end.z)
+                    );
+
+                    // Set max altitude based on distance, capping at 0.5
+                    const maxAltitude = Math.min(0.5, distance / 50.0);
+
+                    // Calculate the control point with scaled altitude
+                    const midLat = (startCoord.lat + endCoord.lat) / 2;
+                    const midLng = (startCoord.lng + endCoord.lng) / 2;
+                    const control = globeEl.current.getCoords(midLat, midLng, maxAltitude);
+
+                    // Generate intermediate points along the Bézier curve
+                    for (let t = 0; t <= 1; t += 1 / numSegments) {
+                        const x = (1 - t) ** 2 * start.x + 2 * (1 - t) * t * control.x + t ** 2 * end.x;
+                        const y = (1 - t) ** 2 * start.y + 2 * (1 - t) * t * control.y + t ** 2 * end.y;
+                        const z = (1 - t) ** 2 * start.z + 2 * (1 - t) * t * control.z + t ** 2 * end.z;
+                        points.push(new THREE.Vector3(x, y, z));
+                    }
+                }
+
+                geometry.setFromPoints(points);
+                return new THREE.Line(geometry, material);
             }}
-                customThreeObjectUpdate={(obj, flightPath) => {
-                const coords = flightPath.coords.map(coord => {
-                const { lat, lng } = coord;
-                if (!globeEl.current) return new THREE.Vector3(0, 0, 0);
-                const globeCoords = globeEl.current.getCoords(lat, lng, 0.1); // Adjust altitude if needed
-                return new THREE.Vector3(globeCoords.x, globeCoords.y, globeCoords.z);
-            });
+            customThreeObjectUpdate={(obj, flightPath) => {
+                const points: THREE.Vector3[] = [];
+                const numSegments = 50;
 
-                const lineSegments = [];
-                for (let i = 0; i < coords.length - 1; i++) {
-                lineSegments.push(coords[i], coords[i + 1]);
-            }
+                for (let i = 0; i < flightPath.coords.length - 1; i++) {
+                    const startCoord = flightPath.coords[i];
+                    const endCoord = flightPath.coords[i + 1];
 
-                obj.geometry.setFromPoints(lineSegments);
+                    const start = globeEl.current.getCoords(startCoord.lat, startCoord.lng, 0);
+                    const end = globeEl.current.getCoords(endCoord.lat, endCoord.lng, 0);
+
+                    const distance = calculateDistance(
+                        new THREE.Vector3(start.x, start.y, start.z),
+                        new THREE.Vector3(end.x, end.y, end.z)
+                    );
+                    const maxAltitude = Math.min(0.5, distance/ 50.0);
+
+                    const midLat = (startCoord.lat + endCoord.lat) / 2;
+                    const midLng = (startCoord.lng + endCoord.lng) / 2;
+                    const control = globeEl.current.getCoords(midLat, midLng, maxAltitude);
+
+                    for (let t = 0; t <= 1; t += 1 / numSegments) {
+                        const x = (1 - t) ** 2 * start.x + 2 * (1 - t) * t * control.x + t ** 2 * end.x;
+                        const y = (1 - t) ** 2 * start.y + 2 * (1 - t) * t * control.y + t ** 2 * end.y;
+                        const z = (1 - t) ** 2 * start.z + 2 * (1 - t) * t * control.z + t ** 2 * end.z;
+                        points.push(new THREE.Vector3(x, y, z));
+                    }
+                }
+
+                obj.geometry.setFromPoints(points);
             }}
-                globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
-                />
+            globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+        />
         }, [flightPaths]);
 
     return (
