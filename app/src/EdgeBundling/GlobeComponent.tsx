@@ -1,4 +1,4 @@
-import {useMemo, useRef} from 'react';
+import {useCallback, useMemo, useRef} from 'react';
 import Globe from 'react-globe.gl';
 import * as THREE from 'three';
 import {FlightPath} from './EdgeBundling.types.ts';
@@ -16,7 +16,7 @@ type GlobeComponentProps = {
 function GlobeComponent({flightPaths, numSegments} : GlobeComponentProps ) {
     const globeEl = useRef();
 
-    function drawFlightPath(flightPath: object) {
+    const drawFlightPath = useCallback((flightPath: object) => {
         const material = new THREE.LineBasicMaterial({color: flightPath.color, linewidth: 3});
         const geometry = new THREE.BufferGeometry();
 
@@ -55,9 +55,10 @@ function GlobeComponent({flightPaths, numSegments} : GlobeComponentProps ) {
 
         geometry.setFromPoints(points);
         return new THREE.Line(geometry, material);
-    }
+    }, [numSegments]);
 
-    function updateFlightPath(flightPath: object, obj: Object3D) {
+
+    const updateFlightPath = useCallback((flightPath: object, obj: Object3D) => {
         const points: THREE.Vector3[] = [];
 
         for (let i = 0; i < flightPath.coords.length - 1; i++) {
@@ -86,7 +87,7 @@ function GlobeComponent({flightPaths, numSegments} : GlobeComponentProps ) {
         }
 
         obj.geometry.setFromPoints(points);
-    }
+    }, [numSegments]);
 
     const globe = useMemo(() => {
         return <Globe
@@ -100,7 +101,7 @@ function GlobeComponent({flightPaths, numSegments} : GlobeComponentProps ) {
             }}
             globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
         />
-    }, [flightPaths]);
+    }, [drawFlightPath, flightPaths, updateFlightPath]);
 
     return (
         <>
