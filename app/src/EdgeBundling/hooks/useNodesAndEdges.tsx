@@ -2,7 +2,6 @@
 import {FlightData} from './useDataParsing.tsx';
 import {Edge, Node} from '../EdgeBundling.types.ts';
 
-// https://www.geeksforgeeks.org/haversine-formula-to-find-distance-between-two-points-on-a-sphere/
 function haversine(
     lat1: number,
     lon1: number,
@@ -24,7 +23,7 @@ function toRadians(degrees: number): number {
     return (degrees * Math.PI) / 180;
 }
 
-function useNodesAndEdges(flightData: FlightData[]) {
+function useNodesAndEdges(flightData: FlightData[], d: number) {
     const nodesMap = new Map<string, Node>();
     const edges: Edge[] = [];
 
@@ -63,7 +62,7 @@ function useNodesAndEdges(flightData: FlightData[]) {
             destNode.lat,
             destNode.lng
         );
-        const d = 2.0; // Edge weight parameter
+
         const weight = Math.pow(distance, d);
 
         const edge: Edge = {

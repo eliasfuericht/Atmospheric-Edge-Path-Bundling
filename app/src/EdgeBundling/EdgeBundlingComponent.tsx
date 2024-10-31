@@ -10,9 +10,12 @@ function calculateDistance(coord1: THREE.Vector3, coord2: THREE.Vector3): number
     return coord1.distanceTo(coord2);
 }
 
+const d = 2.0; // Edge weight parameter
+const numSegments = 100; // Controls the smoothness of the curve
+
 function EdgeBundlingComponent() {
     const parseData: FlightData[] = useDataParsing('/medium.csv');
-    const { nodesMap, edges} = useNodesAndEdges(parseData);
+    const { nodesMap, edges} = useNodesAndEdges(parseData, d);
     const flightPaths: FlightPath[] = useEdgeBundling(nodesMap, edges);
     const globeEl = useRef();
 
@@ -27,7 +30,6 @@ function EdgeBundlingComponent() {
                 const geometry = new THREE.BufferGeometry();
 
                 const points: THREE.Vector3[] = [];
-                const numSegments = 50; // Controls the smoothness of the curve
 
                 for (let i = 0; i < flightPath.coords.length - 1; i++) {
                     const startCoord = flightPath.coords[i];
@@ -65,7 +67,6 @@ function EdgeBundlingComponent() {
             }}
             customThreeObjectUpdate={(obj, flightPath) => {
                 const points: THREE.Vector3[] = [];
-                const numSegments = 50;
 
                 for (let i = 0; i < flightPath.coords.length - 1; i++) {
                     const startCoord = flightPath.coords[i];
