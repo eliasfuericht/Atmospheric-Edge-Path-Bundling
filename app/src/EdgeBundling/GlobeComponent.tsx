@@ -2,7 +2,7 @@ import {useCallback, useMemo, useRef} from 'react';
 import Globe from 'react-globe.gl';
 import * as THREE from 'three';
 import {FlightPath} from './EdgeBundling.types.ts';
-import {Object3D, Object3DEventMap} from 'three';
+import {Object3D} from 'three';
 
 function calculateDistance(coord1: THREE.Vector3, coord2: THREE.Vector3): number {
     return coord1.distanceTo(coord2);

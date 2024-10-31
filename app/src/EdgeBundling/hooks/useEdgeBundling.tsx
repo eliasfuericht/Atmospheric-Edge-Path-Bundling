@@ -1,4 +1,5 @@
 import {Edge, FlightPath, Node} from '../EdgeBundling.types.ts';
+import * as THREE from 'three';
 import {useCallback, useMemo} from 'react';
 import {dijkstra} from '../utils/ShortestPathAlgorithmus.ts';
 import {getControlPoints} from '../utils/ControlPoints.ts';
@@ -41,12 +42,12 @@ function useEdgeBundling(nodesMap: Map<string, Node>, edges: Edge[], k: number) 
             const controlPoints = getControlPoints(source, dest, path, smoothing);
             controlPointLists.push({
                 coords: controlPoints,
-                color: '#ff0000', // You can customize the color as needed
+                color: new THREE.Color( 0xff0000 ),
             });
         }
 
         return controlPointLists;
-    }, []);
+    }, [k]);
 
     return useMemo(() => {
         return edgeBundling(nodesMap, edges);

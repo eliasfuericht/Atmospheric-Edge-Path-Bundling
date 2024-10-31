@@ -1,3 +1,6 @@
+
+import * as THREE from 'three';
+
 export type Node = {
     id: string; // Airport code
     lat: number;
@@ -18,5 +21,5 @@ export type Edge = {
 // Define FlightPath type for rendering
 export type FlightPath = {
     coords: { lat: number; lng: number }[];
-    color: string;
+    color: THREE.Color;
 };
