@@ -44,9 +44,9 @@ function GlobeComponent({flightPaths, numSegments} : GlobeComponentProps ) {
         const latRad = lat * Math.PI / 180.0;  // Convert latitude to radians
         const lngRad = lng * Math.PI / 180.0;  // Convert longitude to radians
 
-        const x = radius * Math.cos(latRad) * Math.cos(lngRad)
-        const y = radius * Math.cos(latRad) * Math.sin(lngRad)
-        const z = radius * Math.sin(latRad) // For height/altitude, use sin(lat)
+        const z = radius * Math.cos(latRad) * Math.cos(lngRad)
+        const x = radius * Math.cos(latRad) * Math.sin(lngRad)
+        const y = radius * Math.sin(latRad) // For height/altitude, use sin(lat)
 
         return { x, y, z };
     }
@@ -79,9 +79,9 @@ function GlobeComponent({flightPaths, numSegments} : GlobeComponentProps ) {
             const parabolaScale = (-4 * ((i - numPoints / 2) ** 2) / (numPoints ** 2) + 1) * 0.05;
 
             const pushOutVector = {
-                x: (point3D.x) * parabolaScale,
-                y: (point3D.y) * parabolaScale,
-                z: (point3D.z) * parabolaScale,
+                x: point3D.x * parabolaScale,
+                y: point3D.y * parabolaScale,
+                z: point3D.z * parabolaScale,
             };
 
             const finalPoint = {

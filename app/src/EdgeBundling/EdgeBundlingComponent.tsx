@@ -6,10 +6,10 @@ import GlobeComponent from './GlobeComponent.tsx';
 
 const k = 4.0; // deroute parameter
 const d = 2.0; // Edge weight parameter
-const numSegments = 100; // Controls the smoothness of the curve
+const numSegments = 50; // Controls the smoothness of the curve
 
 function EdgeBundlingComponent() {
-    const parseData: FlightData[] = useDataParsing('/demo.csv');
+    const parseData: FlightData[] = useDataParsing('/medium.csv');
     const { nodesMap, edges} = useNodesAndEdges(parseData, d);
     const flightPaths: FlightPath[] = useEdgeBundling(nodesMap, edges, k);
 
