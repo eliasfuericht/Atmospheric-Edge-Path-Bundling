@@ -1,0 +1,8 @@
+index,Source_airport,Destination_airport,Source_Latitude,Source_Longitude,Destination_Latitude,Destination_Longitude
+
+1,HNL,DFW,21.316,-157.927,32.896,-97.037
+2,HNL,LAX,21.316,-157.927,33.942,-118.408
+3,LAX,ABQ,33.942,-118.408,35.04,-106.609
+4,HNL,OAK,21.316,-157.927,37.721,-122.221
+5,HNL,PHX,21.316,-157.927,33.434,-112.008
+6,HNL,SJC,21.316,-157.927,37.362,-121.929

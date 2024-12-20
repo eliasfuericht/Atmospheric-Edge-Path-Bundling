@@ -4,7 +4,7 @@ import {useCallback, useMemo} from 'react';
 import {dijkstra} from '../utils/ShortestPathAlgorithmus.ts';
 import {getControlPoints} from '../utils/ControlPoints.ts';
 
-const smoothing = 2;
+const smoothing = 10;
 
 function useEdgeBundling(nodesMap: Map<string, Node>, edges: Edge[], k: number) {
 

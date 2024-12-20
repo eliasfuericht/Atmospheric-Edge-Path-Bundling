@@ -22,6 +22,7 @@ export function getControlPoints(
     controlPoints.push({ lat: dest.lat, lng: dest.lng });
 
     // Apply smoothing
+    //return controlPoints;
     return applySmoothing(controlPoints, smoothing);
 }
 
