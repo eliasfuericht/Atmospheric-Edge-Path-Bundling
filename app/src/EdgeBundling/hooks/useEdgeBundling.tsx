@@ -4,8 +4,6 @@ import {useCallback, useMemo} from 'react';
 import {dijkstra} from '../utils/ShortestPathAlgorithmus.ts';
 import {getControlPoints} from '../utils/ControlPoints.ts';
 
-const smoothing = 10;
-
 function useEdgeBundling(nodesMap: Map<string, Node>, edges: Edge[], k: number) {
 
     const edgeBundling = useCallback((nodesMap: Map<string, Node>, edges: Edge[]): FlightPath[] => {
@@ -39,7 +37,8 @@ function useEdgeBundling(nodesMap: Map<string, Node>, edges: Edge[], k: number) 
             }
 
             // Get control points for drawing
-            const controlPoints = getControlPoints(source, dest, path, smoothing);
+            const controlPoints = getControlPoints(source, dest, path);
+            
             controlPointLists.push({
                 coords: controlPoints,
                 color: new THREE.Color( 0xff0000 ),

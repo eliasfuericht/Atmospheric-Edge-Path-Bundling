@@ -6,6 +6,13 @@ export function getControlPoints(
     path: Edge[],
     smoothing: number
 ): { lat: number; lng: number }[] {
+    if (path.length === 2) {
+        return [
+            { lat: source.lat, lng: source.lng },
+            { lat: dest.lat, lng: dest.lng }
+        ];
+    }
+    
     // Initialize control points with the source node
     const controlPoints: { lat: number; lng: number }[] = [];
     let currentNode: Node = source;
@@ -15,15 +22,15 @@ export function getControlPoints(
         controlPoints.push({ lat: currentNode.lat, lng: currentNode.lng });
 
         // Determine the next node in the path
-        currentNode = edge.source === currentNode ? edge.destination : edge.source;
+        currentNode = edge.destination;
     }
 
     // Add the destination node's coordinates
     controlPoints.push({ lat: dest.lat, lng: dest.lng });
 
     // Apply smoothing
-    //return controlPoints;
-    return applySmoothing(controlPoints, smoothing);
+    return controlPoints;
+    //return applySmoothing(controlPoints, smoothing);
 }
 
 // Helper function to smooth points by inserting midpoints iteratively
