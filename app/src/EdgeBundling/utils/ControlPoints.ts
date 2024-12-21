@@ -1,10 +1,10 @@
-import {Edge, Node} from '../EdgeBundling.types.ts';
+import {Coordinate, Edge, Node} from '../EdgeBundling.types.ts';
 
 export function getControlPoints(
     source: Node,
     dest: Node,
     path: Edge[],
-): { lat: number; lng: number }[] {
+): Coordinate[] {
     if (path.length === 2) {
         return [
             { lat: source.lat, lng: source.lng },

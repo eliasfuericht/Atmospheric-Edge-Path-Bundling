@@ -18,8 +18,14 @@ export type Edge = {
     lock: boolean;
     skip: boolean;
 };
+
+export type Coordinate = {
+    lat: number;
+    lng: number;
+}
+
 // Define FlightPath type for rendering
 export type FlightPath = {
-    coords: { lat: number; lng: number }[];
+    coords: Coordinate[];
     color: THREE.Color;
 };
