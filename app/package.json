@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.2.1",
     "globe.gl": "^2.33.0",
     "leaflet": "^1.9.4",
     "papaparse": "^5.4.1",

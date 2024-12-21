@@ -3,13 +3,23 @@ import useNodesAndEdges from './hooks/useNodesAndEdges.tsx';
 import {FlightPath} from './EdgeBundling.types.ts';
 import useEdgeBundling from './hooks/useEdgeBundling.tsx';
 import GlobeComponent from './GlobeComponent.tsx';
+import { ReactElement } from 'react';
 
-const k = 4.0; // deroute parameter
-const d = 2.0; // Edge weight parameter
-const numSegments = 50; // Controls the smoothness of the curve
+type EdgeBundlingComponentProps = {
+    k: number;
+    d: number;
+    numSegments: number;
+    file: string;
+};
 
-function EdgeBundlingComponent() {
-    const parseData: FlightData[] = useDataParsing('/medium.csv');
+export enum DataSet {
+    SMALL = '/small.csv',
+    MEDIUM = '/medium.csv',
+    FULL = '/full.csv',
+}
+
+function EdgeBundlingComponent({ k, d, numSegments, file }: EdgeBundlingComponentProps): ReactElement {
+    const parseData: FlightData[] = useDataParsing(file);
     const { nodesMap, edges} = useNodesAndEdges(parseData, d);
     const flightPaths: FlightPath[] = useEdgeBundling(nodesMap, edges, k);
 
