@@ -29,7 +29,7 @@ function GlobeComponent({flightPaths, numSegments} : GlobeComponentProps ) {
         geometry.setPositions(points);
         const line: THREE.Object3D = new Line2(geometry, material);
         return line;
-    }, [numSegments]);
+    }, [generateBezierCurve, numSegments]);
 
     // Function to interpolate between two points
     function interpolate(p0, p1, t) {

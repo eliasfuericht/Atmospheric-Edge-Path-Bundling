@@ -11,32 +11,39 @@ export type FlightData = {
     Destination_Longitude: string;
 };
 
-type Flight = {
-    startLat: string;
-    startLng: string;
-    endLat: string;
-    endLng: string;
-    color: string[];
-};
-
-function useDataParsing( file: string): FlightData[] {
+function useDataParsing( file: string ): FlightData[] {
 
     const [parsedData, setParsedData] = useState<FlightData[]>([]);
 
     const parseData = useCallback((csvText: string) => {
         Papa.parse<FlightData>(csvText, {
             header: true,
+            skipEmptyLines: true,
             complete: (result: ParseResult<FlightData>) => {
-                setParsedData(result.data);
+                if (result.errors.length > 0) {
+                    console.error('Error parsing data:', result.errors);
+                } else {
+                    setParsedData(result.data);
+                }
             },
         });
     }, []);
 
     useEffect(() => {
-        fetch(file)
-            .then((response) => response.text())
-            .then(parseData)
-            .catch((error) => console.error('Error parsing data:', error));
+        const fetchData = async () => {
+            try {
+                const response = await fetch(file);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch file: ${response.statusText}`);
+                }
+                const csvText = await response.text();
+                parseData(csvText);
+            } catch (error) {
+                console.error('Error fetching or parsing data:', error);
+            }
+        };
+
+        void fetchData();
     }, [file, parseData]);
 
     return parsedData;

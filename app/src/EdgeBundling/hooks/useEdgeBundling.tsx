@@ -1,10 +1,10 @@
 import {Edge, FlightPath, Node} from '../EdgeBundling.types.ts';
 import * as THREE from 'three';
 import {useCallback, useMemo} from 'react';
-import {dijkstra} from '../utils/ShortestPathAlgorithmus.ts';
+import {dijkstra} from '../utils/dijkstra.ts';
 import {getControlPoints} from '../utils/ControlPoints.ts';
 
-function useEdgeBundling(nodesMap: Map<string, Node>, edges: Edge[], k: number) {
+function useEdgeBundling(nodesMap: Map<string, Node>, edges: Edge[], k: number): FlightPath[] {
 
     const edgeBundling = useCallback((nodesMap: Map<string, Node>, edges: Edge[]): FlightPath[] => {
         const controlPointLists: FlightPath[] = [];
