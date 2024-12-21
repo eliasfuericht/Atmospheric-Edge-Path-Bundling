@@ -1,9 +1,8 @@
-import {useCallback, useMemo, useRef} from 'react';
+import {ReactElement, useCallback, useMemo, useRef} from 'react';
 import Globe, {GlobeMethods} from 'react-globe.gl';
-import * as THREE from 'three';
-import { Line2 } from 'three/examples/jsm/lines/Line2.js';
-import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js';
-import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry.js';
+import {Line2} from 'three/examples/jsm/lines/Line2.js';
+import {LineMaterial} from 'three/examples/jsm/lines/LineMaterial.js';
+import {LineGeometry} from 'three/examples/jsm/lines/LineGeometry.js';
 import {FlightPath} from './EdgeBundling.types.ts';
 import generateBezierCurve from "./utils/generateBezierCurve.ts";
 
@@ -12,40 +11,39 @@ type GlobeComponentProps = {
     numSegments: number;
 }
 
-function GlobeComponent({flightPaths, numSegments} : GlobeComponentProps ) {
-    const globeEl = useRef<GlobeMethods | null>(null);
+function GlobeComponent({ flightPaths, numSegments }: GlobeComponentProps): ReactElement {
+    const globeRef = useRef<GlobeMethods | undefined>(undefined);
 
-    const drawFlightPath = useCallback((flightPath: FlightPath) => {
-        if (!globeEl.current) return null;
+    const createFlightPathObject = useCallback(
+        (d: object) => {
+            const flightPath = d as FlightPath;
 
-        const material = new LineMaterial({
-            color: flightPath.color,
-            linewidth: 0.15,
-            worldUnits: true,
-        });
-        const geometry = new LineGeometry();
+            const material = new LineMaterial({
+                color: flightPath.color,
+                linewidth: 0.15,
+                worldUnits: true,
+            });
 
-        const points = generateBezierCurve(flightPath.coords, numSegments)
-        
-        geometry.setPositions(points);
-        const line: THREE.Object3D = new Line2(geometry, material);
-        return line;
-    }, [numSegments]);
+            const geometry = new LineGeometry();
+            const points = generateBezierCurve(flightPath.coords, numSegments);
+            geometry.setPositions(points);
 
-    const globe = useMemo(() => {
-        return (
+            return new Line2(geometry, material);
+        },
+        [numSegments]
+    );
+
+    return useMemo(
+        () => (
             <Globe
-                ref={globeEl}
+                ref={globeRef}
                 customLayerData={flightPaths}
-                customThreeObject={(flightPath: FlightPath) => {
-                    return drawFlightPath(flightPath);
-                }}
+                customThreeObject={createFlightPathObject}
                 globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
             />
-        );
-    }, [drawFlightPath, flightPaths]);
-
-    return <>{globe}</>;
+        ),
+        [flightPaths, createFlightPathObject]
+    );
 }
 
 export default GlobeComponent;
