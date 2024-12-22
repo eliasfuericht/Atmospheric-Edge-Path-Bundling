@@ -1,4 +1,4 @@
-import {Coordinate, Edge, FlightPath, Node} from '../EdgeBundling.types.ts';
+import {ControlPoint, Edge, FlightPath, Node} from '../EdgeBundling.types.ts';
 
 export const performEdgeBundling = (
     nodesMap: Map<string, Node>,
@@ -146,31 +146,39 @@ export const performEdgeBundling = (
         source: Node,
         dest: Node,
         path: Edge[],
-    ): Coordinate[] {
+    ): ControlPoint[] {
         if (path.length === 2) {
             return [
-                { lat: source.lat, lng: source.lng },
-                { lat: dest.lat, lng: dest.lng }
+                { coord: { lat: source.lat, lng: source.lng }, color: getRandomHexColor() },
+                { coord: { lat: dest.lat, lng: dest.lng }, color: getRandomHexColor() },
             ];
         }
 
-        // Initialize control points with the source node
-        const controlPoints: { lat: number; lng: number }[] = [];
-        let currentNode: Node = source;
+        // Initialize control points array
+        const controlPoints: ControlPoint[] = [];
 
-        // Traverse the path, adding each node's coordinates to control points
+        // Add the source node with blue color
+        controlPoints.push({
+            coord: { lat: source.lat, lng: source.lng },
+            color: getRandomHexColor(),
+        });
+
+        // Traverse the path and add intermediate nodes with green color
         for (const edge of path) {
-            controlPoints.push({ lat: currentNode.lat, lng: currentNode.lng });
-
-            // Determine the next node in the path
-            currentNode = edge.destination;
+            controlPoints.push({
+                coord: { lat: edge.destination.lat, lng: edge.destination.lng },
+                color: getRandomHexColor(),
+            });
         }
 
-        // Add the destination node's coordinates
-        controlPoints.push({ lat: dest.lat, lng: dest.lng });
+        // Replace the last intermediate node's color with blue (end point)
+        controlPoints[controlPoints.length - 1].color = getRandomHexColor();
 
-        // Apply smoothing
         return controlPoints;
+    }
+
+    function getRandomHexColor(): number {
+        return Math.floor(Math.random() * 0xffffff);
     }
 
 // Edge Bundling algorithm ---------------------------------------------------------------------------------------------
@@ -206,7 +214,8 @@ export const performEdgeBundling = (
         const controlPoints = getControlPoints(source, dest, path);
 
         controlPointLists.push({
-            coords: controlPoints,
+            coords: controlPoints.map(controlPoint => controlPoint.coord),
+            color: controlPoints.map(controlPoint => controlPoint.color),
         });
     }
 

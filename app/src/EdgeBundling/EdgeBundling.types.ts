@@ -1,3 +1,5 @@
+import * as THREE from 'three';
+
 export type Node = {
     id: string; // Airport code
     lat: number;
@@ -20,10 +22,15 @@ export type Coordinate = {
     lat: number;
     lng: number;
 }
+export type ControlPoint = {
+    coord: Coordinate;
+    color: number; 
+}
 
 // Define FlightPath type for rendering
 export type FlightPath = {
     coords: Coordinate[];
+    color: number[];
 };
 
 export enum DataSet {
