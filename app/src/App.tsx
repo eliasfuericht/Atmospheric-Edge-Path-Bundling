@@ -9,7 +9,7 @@ function App() {
   const [k, setK] = useState(4.0); // Deroute parameter
   const [d, setD] = useState(2.0); // Edge weight parameter
   const [numSegments, setNumSegments] = useState(50); // Curve smoothness
-    const [file, setFile] = useState(DataSet.MEDIUM);
+    const [file, setFile] = useState(DataSet.NONE);
 
   return (
       <div style={{ position: 'relative', height: '100vh', width: '100vw' }}>

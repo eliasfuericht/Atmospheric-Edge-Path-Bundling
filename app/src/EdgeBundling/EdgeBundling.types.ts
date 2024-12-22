@@ -27,6 +27,7 @@ export type FlightPath = {
 };
 
 export enum DataSet {
+    NONE = '',
     SMALL = '/small.csv',
     MEDIUM = '/medium.csv',
     FULL = '/full.csv',

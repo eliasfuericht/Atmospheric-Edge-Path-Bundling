@@ -26,6 +26,7 @@ function UserControls(
             borderRadius: '8px',
             padding: '16px',
             width: '12rem',
+            zIndex: (theme) => theme.zIndex.drawer + 2
         }}
     >
         <Typography variant="h6" fontSize={18} gutterBottom>
@@ -43,6 +44,7 @@ function UserControls(
                 onChange={(e) => setDataSet(e.target.value as DataSet)}
                 label="Data Set"
             >
+                <MenuItem value={DataSet.NONE}>None</MenuItem>
                 <MenuItem value={DataSet.SMALL}>Small</MenuItem>
                 <MenuItem value={DataSet.MEDIUM}>Medium</MenuItem>
                 <MenuItem value={DataSet.FULL}>Full</MenuItem>
