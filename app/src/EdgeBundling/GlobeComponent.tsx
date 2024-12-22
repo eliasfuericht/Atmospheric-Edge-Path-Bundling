@@ -13,13 +13,14 @@ type GlobeComponentProps = {
 
 function GlobeComponent({ flightPaths, numSegments }: GlobeComponentProps): ReactElement {
     const globeRef = useRef<GlobeMethods | undefined>(undefined);
+    const color = 0xff0000;
 
     const createFlightPathObject = useCallback(
         (d: object) => {
             const flightPath = d as FlightPath;
 
             const material = new LineMaterial({
-                color: flightPath.color,
+                color: color,
                 linewidth: 0.15,
                 worldUnits: true,
             });

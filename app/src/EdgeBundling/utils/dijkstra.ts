@@ -1,15 +1,19 @@
 import {Edge, Node} from '../EdgeBundling.types.ts';
-import MinHeap from './MinHeap.ts';
+import { createMinHeap } from './FunctionalMinHeap.ts';
 
 export function dijkstra(source: Node, dest: Node, nodes: Map<string, Node>): Edge[] {
+    // Initialize all nodes
     nodes.forEach((node) => {
         node.distance = Infinity;
         node.visited = false;
         node.previous = null;
     });
 
+    // Initialize the source node
     source.distance = 0;
-    const queue = new MinHeap<Node>((a, b) => a.distance - b.distance);
+
+    // Create the MinHeap
+    const queue = createMinHeap<Node>((a, b) => a.distance - b.distance);
     queue.insert(source);
 
     while (!queue.isEmpty()) {
@@ -17,8 +21,11 @@ export function dijkstra(source: Node, dest: Node, nodes: Map<string, Node>): Ed
         if (currentNode.visited) continue;
 
         currentNode.visited = true;
+
+        // Stop early if the destination is reached
         if (currentNode === dest) break;
 
+        // Relax edges
         for (const edge of currentNode.edges) {
             if (edge.skip) continue;
 
@@ -28,7 +35,7 @@ export function dijkstra(source: Node, dest: Node, nodes: Map<string, Node>): Ed
             if (tentativeDistance < neighbor.distance) {
                 neighbor.distance = tentativeDistance;
                 neighbor.previous = currentNode;
-                queue.insert(neighbor);
+                queue.insert(neighbor); // Add neighbor to the MinHeap
             }
         }
     }
@@ -42,12 +49,15 @@ function reconstructPath(dest: Node): Edge[] {
 
     while (currentNode != null && currentNode.previous != null) {
         const prevNode: Node = currentNode.previous;
+
+        // Find the edge that connects currentNode and prevNode
         const edge = prevNode.edges.find(
             (e) =>
                 (e.source === currentNode && e.destination === prevNode) ||
                 (e.source === prevNode && e.destination === currentNode)
         );
-        if (edge) path.unshift(edge);
+
+        if (edge) path.unshift(edge); // Add edge to the path in reverse order
         currentNode = prevNode;
     }
 

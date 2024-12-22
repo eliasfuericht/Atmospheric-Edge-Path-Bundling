@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import EdgeBundlingComponent, {DataSet} from './EdgeBundling/EdgeBundlingComponent.tsx';
+import EdgeBundlingComponent from './EdgeBundling/EdgeBundlingComponent.tsx';
 import UserControls from "./GUI/UserControls.tsx";
+import {DataSet} from "./EdgeBundling/EdgeBundling.types.ts";
 
 
 function App() {

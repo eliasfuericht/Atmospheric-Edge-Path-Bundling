@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@koale/useworker": "^4.1.0",
     "@mui/material": "^6.2.1",
     "globe.gl": "^2.33.0",
     "leaflet": "^1.9.4",
@@ -20,6 +21,7 @@
     "react-dom": "^18.3.1",
     "react-globe.gl": "^2.27.2",
     "react-leaflet": "^4.2.1",
+    "react-scan": "^0.0.51",
     "three": "^0.169.0"
   },
   "devDependencies": {

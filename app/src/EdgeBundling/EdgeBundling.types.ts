@@ -1,6 +1,3 @@
-
-import * as THREE from 'three';
-
 export type Node = {
     id: string; // Airport code
     lat: number;
@@ -27,5 +24,10 @@ export type Coordinate = {
 // Define FlightPath type for rendering
 export type FlightPath = {
     coords: Coordinate[];
-    color: THREE.Color;
 };
+
+export enum DataSet {
+    SMALL = '/small.csv',
+    MEDIUM = '/medium.csv',
+    FULL = '/full.csv',
+}

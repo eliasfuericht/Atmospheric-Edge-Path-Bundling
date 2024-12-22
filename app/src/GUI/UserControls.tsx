@@ -1,6 +1,6 @@
 import {Box, FormControl, InputLabel, MenuItem, Select, Slider, Typography} from "@mui/material";
 import {ReactElement} from "react";
-import {DataSet} from "../EdgeBundling/EdgeBundlingComponent.tsx";
+import {DataSet} from "../EdgeBundling/EdgeBundling.types.ts";
 
 type UserControlsProps = {
     setK: (k: number) => void;
