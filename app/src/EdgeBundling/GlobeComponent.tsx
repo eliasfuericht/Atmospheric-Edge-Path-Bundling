@@ -40,7 +40,8 @@ function GlobeComponent({ flightPaths, numSegments }: GlobeComponentProps): Reac
                 ref={globeRef}
                 customLayerData={flightPaths}
                 customThreeObject={createFlightPathObject}
-                globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+                globeImageUrl="/earth_july.jpg"
+                backgroundImageUrl = "/night-sky.png"
             />
         ),
         [flightPaths, createFlightPathObject]
