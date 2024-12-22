@@ -5,10 +5,10 @@ import './index.css'
 
 if (typeof window !== 'undefined') {
     scan({
-        enabled: false,
-        log: true, // prints re-renders to the console
+        enabled: true,
+        log: false, // prints re-renders to the console
         showToolbar: true,
-
+        playSound: false,
     });
 }
 createRoot(document.getElementById('root')!).render(

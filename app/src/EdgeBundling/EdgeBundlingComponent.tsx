@@ -4,6 +4,7 @@ import GlobeComponent from './GlobeComponent.tsx';
 import {ReactElement} from 'react';
 
 import useEdgeBundlingWorker from "./hooks/useEdgeBundlingWorker.tsx";
+import {useScan} from "react-scan";
 
 type EdgeBundlingComponentProps = {
     k: number;

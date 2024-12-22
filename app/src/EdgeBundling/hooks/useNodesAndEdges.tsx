@@ -1,6 +1,7 @@
 // Define Node and Edge types
 import {FlightData} from './useDataParsing.tsx';
 import {Edge, Node} from '../EdgeBundling.types.ts';
+import {useMemo} from "react";
 
 function haversine(
     lat1: number,
@@ -24,7 +25,9 @@ function toRadians(degrees: number): number {
 }
 
 function useNodesAndEdges(flightData: FlightData[], d: number) {
-    const nodesMap = new Map<string, Node>();
+    return useMemo(() => {
+
+        const nodesMap = new Map<string, Node>();
     const edges: Edge[] = [];
 
     flightData.forEach((data) => {
@@ -92,6 +95,7 @@ function useNodesAndEdges(flightData: FlightData[], d: number) {
     });
 
     return { nodesMap, edges };
+    }, [flightData, d]);
 }
 
 
