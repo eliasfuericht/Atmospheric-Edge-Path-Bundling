@@ -1,4 +1,4 @@
-import {Coordinate, Edge, FlightPath, Node} from '../../EdgeBundling.types.ts';
+import {Coordinate, Edge, FlightPath, Node} from '../EdgeBundling.types.ts';
 
 export const performEdgeBundling = (
     nodesMap: Map<string, Node>,
@@ -6,6 +6,7 @@ export const performEdgeBundling = (
     k: number
 ): FlightPath[] => {
 
+// MinHeap implementation ----------------------------------------------------------------------------------------------
     const createMinHeap = <T>(comparator: (a: T, b: T) => number) => {
         const heap: T[] = [];
 
@@ -72,6 +73,7 @@ export const performEdgeBundling = (
         };
     };
 
+// Dijkstra's algorithm ------------------------------------------------------------------------------------------------
     function dijkstra(source: Node, dest: Node, nodes: Map<string, Node>): Edge[] {
         // Initialize all nodes
         nodes.forEach((node) => {
@@ -139,6 +141,7 @@ export const performEdgeBundling = (
         return path;
     }
 
+// Get control points for a path ---------------------------------------------------------------------------------------
     function getControlPoints(
         source: Node,
         dest: Node,
@@ -170,6 +173,7 @@ export const performEdgeBundling = (
         return controlPoints;
     }
 
+// Edge Bundling algorithm ---------------------------------------------------------------------------------------------
     const controlPointLists: FlightPath[] = [];
 
     const processedEdges = edges.map(edge => ({ ...edge, lock: edge.lock, skip: true }));

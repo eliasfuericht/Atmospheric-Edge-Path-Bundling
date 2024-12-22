@@ -10,7 +10,7 @@ type UserControlsProps = {
     setNumSegments: (numSegments: number) => void;
     numSegments: number;
     setDataSet: (dataSet: DataSet) => void;
-    dataSet: DataSet;
+    dataSet: DataSet | '';
 };
 
 function UserControls(
@@ -34,22 +34,19 @@ function UserControls(
         </Typography>
 
         <Box sx={{ marginBottom: '16px' }}>
-        <FormControl fullWidth style={{ marginTop: '16px' }}>
-            <InputLabel>Data Set</InputLabel>
-            <Select
-                sx={{
-                    color: 'white',
-                }}
-                value={dataSet}
-                onChange={(e) => setDataSet(e.target.value as DataSet)}
-                label="Data Set"
-            >
-                <MenuItem value={DataSet.NONE}>None</MenuItem>
-                <MenuItem value={DataSet.SMALL}>Small</MenuItem>
-                <MenuItem value={DataSet.MEDIUM}>Medium</MenuItem>
-                <MenuItem value={DataSet.FULL}>Full</MenuItem>
-            </Select>
-        </FormControl>
+            <FormControl fullWidth style={{ marginTop: "16px" }}>
+                <InputLabel>Data Set</InputLabel>
+                <Select
+                    label="Data Set"
+                    value={dataSet}
+                    onChange={(e) => setDataSet(e.target.value as DataSet)}
+                    displayEmpty
+                >
+                    <MenuItem value={DataSet.SMALL}>Small</MenuItem>
+                    <MenuItem value={DataSet.MEDIUM}>Medium</MenuItem>
+                    <MenuItem value={DataSet.FULL}>Full</MenuItem>
+                </Select>
+            </FormControl>
         </Box>
 
         {/* Slider for 'k' */}

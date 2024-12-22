@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useWorker, WORKER_STATUS} from "@koale/useworker";
-import {performEdgeBundling} from "../utils/workers/edgeBundling.worker.ts";
+import {performEdgeBundling} from "../utils/edgeBundling.worker.ts";
 import {Edge, FlightPath, Node} from "../EdgeBundling.types.ts";
 
 
