@@ -1,5 +1,3 @@
-import * as THREE from 'three';
-
 export type Node = {
     id: string; // Airport code
     lat: number;

@@ -5,7 +5,6 @@ import {LineMaterial} from 'three/examples/jsm/lines/LineMaterial.js';
 import {LineGeometry} from 'three/examples/jsm/lines/LineGeometry.js';
 import {FlightPath} from './EdgeBundling.types.ts';
 import generateBezierCurve from "./utils/generateBezierCurve.ts";
-import * as THREE from 'three';
 
 type GlobeComponentProps = {
     flightPaths: FlightPath[];
