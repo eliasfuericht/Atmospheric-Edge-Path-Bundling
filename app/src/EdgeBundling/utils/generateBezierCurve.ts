@@ -21,7 +21,7 @@ function generateBezierCurve(coords: Coordinate[], numPoints = 100): number[] {
         const bezierPoint = deCasteljau(t, coords);
         const point3D = latLngToXYZ(bezierPoint.lat, bezierPoint.lng);
 
-        const parabolaScale = (-4 * ((i - numPoints / 2) ** 2) / (numPoints ** 2) + 1) * 0.05;
+        const parabolaScale = (-4 * ((i - numPoints / 2) ** 2) / (numPoints ** 2) + 1) * 0.1;
 
         const scaledPoint = {
             x: point3D.x * (1 + parabolaScale),

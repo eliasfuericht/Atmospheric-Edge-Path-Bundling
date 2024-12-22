@@ -149,8 +149,8 @@ export const performEdgeBundling = (
     ): ControlPoint[] {
         if (path.length === 2) {
             return [
-                { coord: { lat: source.lat, lng: source.lng }, color: getRandomHexColor() },
-                { coord: { lat: dest.lat, lng: dest.lng }, color: getRandomHexColor() },
+                { coord: { lat: source.lat, lng: source.lng }, color: 0xff0000 },
+                { coord: { lat: dest.lat, lng: dest.lng }, color: 0xff0000 },
             ];
         }
 
@@ -160,19 +160,19 @@ export const performEdgeBundling = (
         // Add the source node with blue color
         controlPoints.push({
             coord: { lat: source.lat, lng: source.lng },
-            color: getRandomHexColor(),
+            color: 0xff0000,
         });
 
         // Traverse the path and add intermediate nodes with green color
         for (const edge of path) {
             controlPoints.push({
                 coord: { lat: edge.destination.lat, lng: edge.destination.lng },
-                color: getRandomHexColor(),
+                color: 0xff0000,
             });
         }
 
         // Replace the last intermediate node's color with blue (end point)
-        controlPoints[controlPoints.length - 1].color = getRandomHexColor();
+        controlPoints[controlPoints.length - 1].color = 0xff0000;
 
         return controlPoints;
     }
