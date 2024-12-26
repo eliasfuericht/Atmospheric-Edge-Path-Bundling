@@ -35,4 +35,5 @@ export enum DataSet {
     SMALL = '/small.csv',
     MEDIUM = '/medium.csv',
     FULL = '/full.csv',
+    PRESENTATION = '/presentation.csv'
 }

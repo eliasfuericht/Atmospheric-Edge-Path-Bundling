@@ -45,6 +45,7 @@ function UserControls(
                     <MenuItem value={DataSet.SMALL}>Small</MenuItem>
                     <MenuItem value={DataSet.MEDIUM}>Medium</MenuItem>
                     <MenuItem value={DataSet.FULL}>Full</MenuItem>
+                    <MenuItem value={DataSet.PRESENTATION}>Presentation</MenuItem>
                 </Select>
             </FormControl>
         </Box>
