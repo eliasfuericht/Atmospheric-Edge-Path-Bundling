@@ -52,8 +52,8 @@ function GlobeComponent({ flightPaths, numSegments }: GlobeComponentProps): Reac
                 ref={globeRef}
                 customLayerData={flightPaths}
                 customThreeObject={createFlightPathObject}
-                globeImageUrl="/earth_july.jpg"
-                backgroundImageUrl = "/night-sky.png"
+                globeImageUrl="/Vis2_project/earth_july.jpg"
+                backgroundImageUrl = "/Vis2_project/night-sky.png"
             />
         ),
         [flightPaths, createFlightPathObject]

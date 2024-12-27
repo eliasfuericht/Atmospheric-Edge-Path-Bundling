@@ -32,8 +32,8 @@ export type FlightPath = {
 };
 
 export enum DataSet {
-    SMALL = '/small.csv',
-    MEDIUM = '/medium.csv',
-    FULL = '/full.csv',
-    PRESENTATION = '/presentation.csv'
+    SMALL = '/Vis2_project/small.csv',
+    MEDIUM = '/Vis2_project/medium.csv',
+    FULL = '/Vis2_project/full.csv',
+    PRESENTATION = '/Vis2_project/presentation.csv'
 }
