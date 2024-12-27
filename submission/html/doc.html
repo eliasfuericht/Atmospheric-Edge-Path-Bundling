@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge-Path Bundling Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 2.5rem;
+            color: #111827;
+        }
+        h2 {
+            text-align: center;
+            margin: 30px 0 10px;
+            color: #1f2937;
+            font-size: 1.8rem;
+        }
+        h3 {
+            text-align: center;
+            margin: 10px 0;
+            color: #374151;
+            font-size: 1.2rem;
+        }
+        .center {
+            text-align: center;
+        }
+        .paragraph {
+            max-width: 800px;
+            margin: 10px auto;
+            padding: 10px;
+            text-align: justify;
+            line-height: 1.8;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px auto;
+            padding: 10px;
+        }
+        .links a {
+            text-decoration: none;
+            color: #2563eb;
+            padding: 10px 20px;
+            border: 1px solid #2563eb;
+            border-radius: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .links a:hover {
+            background-color: #2563eb;
+            color: white;
+        }
+        .prominent {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            background-color: #2563eb;
+            border: none;
+            border-radius: 25px;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+        .prominent:hover {
+            transform: scale(1.1);
+            background-color: #1d4ed8;
+        }
+        .bottom-buffer {
+            height: 5vh;
+        }
+    </style>
+</head>
+<body>
+    <h1>Atmospheric Edge-Path Bundling</h1>
+    <h3>David Köppl & Elias Füricht</h3>
+    <div class="center">
+        <a href="https://eliasfuericht.github.io/Vis2_project/" class="prominent">Explore Implementation</a>
+    </div>
+    <div class="center">
+        <a href="https://www.computer.org/csdl/journal/tg/2022/01/09552919/1xibXgJW32U">Paper: Edge-Path Bundling: A Less Ambiguous Edge Bundling Approach</a>
+    </div>
+    <div class="paragraph">
+        This project demonstrates a visualization of network data using edge-path bundling, implemented with TypeScript using Three.js and Globe.GL. Edge-path bundling reduces visual clutter by grouping edges with similar paths, revealing hidden trends and improving graph readability.
+    </div>
+
+    <h2>Preprocessing & Edge-Bundling</h2>
+    <p class="paragraph">
+        The edge-path bundling process is implemented with TypeScript using vite. First the data is parsed from a .csv file where each line represents a flightpath with source latitude and longitude aswell as destination latitude and longitude. From this data a graph is constructed on which the edge-path bundling algorithm, proposed by Wallinger et al. in the above linked paper, is run.
+    </p>
+    <div class="center">
+        <img src="csv_data_format.png" alt="csv data format">
+    </div>
+
+    <h2>Visualization</h2>
+    <p class="paragraph">
+        Visualization is achieved using Three.js in combination with Globe.GL. Without the application of edge-path bundling the visualization looks cluttered and confusing. Right now we are drawing the graph as it is - with edges connecting source with destination directly.
+    </p>
+    <div class="center">
+        <img src="vis_no_bundling.png" alt="not bundled">
+    </div>
+    <p class="paragraph">
+        In the bundled graph, edges are grouped based on proximity and similarity. Adjustable parameters include:
+        <a><b>Edge Weight Factor d:</b> Controls the scaling of the length of the edge in the graph.</a>
+        <a><b>Maximum Distortion Threshold k:</b> Determines how much the bundled path is allowed to deviate from the direct route.</a>
+        <br>
+        An interesting observation is, that due to bundling, a prominent flightroute: the atlantic highway has become visible just from the data itself. Can be seen in the image below.
+    </p>
+    <div class="center">
+        <img src="vis_with_bundling.png" alt="bundled">
+    </div>
+    <h2>Documentation</h2>
+    <p class="paragraph" style="text-align: center;">
+        For an in-depth explanation of the code, you can follow this link:<br>
+        <a href="https://example.com/code-documentation">Code Documentation</a>
+    </p>
+    <div class="bottom-buffer">
+
+    </div>
+</body>
+</html>
