@@ -42,9 +42,7 @@ function UserControls(
                     onChange={(e) => setDataSet(e.target.value as DataSet)}
                     displayEmpty
                 >
-                    <MenuItem value={DataSet.SMALL}>Small</MenuItem>
-                    <MenuItem value={DataSet.MEDIUM}>Medium</MenuItem>
-                    <MenuItem value={DataSet.FULL}>Full</MenuItem>
+                    <MenuItem value={DataSet.DEMO}>Demo</MenuItem>
                     <MenuItem value={DataSet.PRESENTATION}>Presentation</MenuItem>
                 </Select>
             </FormControl>
