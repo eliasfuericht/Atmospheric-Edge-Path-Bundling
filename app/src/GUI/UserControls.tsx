@@ -35,7 +35,7 @@ function UserControls(
 
         <Box sx={{ marginBottom: '16px' }}>
             <FormControl fullWidth style={{ marginTop: "16px" }}>
-                <InputLabel>Data Set</InputLabel>
+                <InputLabel>Select a Dataset</InputLabel>
                 <Select
                     label="Data Set"
                     value={dataSet}
