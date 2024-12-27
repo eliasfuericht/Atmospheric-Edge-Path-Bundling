@@ -37,7 +37,7 @@ function GlobeComponent({ flightPaths, numSegments }: GlobeComponentProps): Reac
             // Create the material
             const material = new LineMaterial({
                 vertexColors: true, // Enable vertex-based coloring
-                linewidth: 0.15,
+                linewidth: 0.175,
                 worldUnits: true,
             });
 
