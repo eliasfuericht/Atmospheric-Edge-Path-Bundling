@@ -177,10 +177,6 @@ export const performEdgeBundling = (
         return controlPoints;
     }
 
-    function getRandomHexColor(): number {
-        return Math.floor(Math.random() * 0xffffff);
-    }
-
 // Edge Bundling algorithm ---------------------------------------------------------------------------------------------
     const controlPointLists: FlightPath[] = [];
 
