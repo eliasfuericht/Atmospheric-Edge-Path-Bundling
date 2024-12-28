@@ -1,8 +1,8 @@
 import csv
 import random
 
-input_file = 'C:/Users/eliaf/OneDrive/TU Wien/3.Semester/Visualisierung 2/VU/Vis2_project/app/public/full.csv'
-output_file = 'C:/Users/eliaf/OneDrive/TU Wien/3.Semester/Visualisierung 2/VU/Vis2_project/app/public/presentation.csv'
+input_file = 'C:/Users/eliaf/OneDrive/TU Wien/3.Semester/Visualisierung 2/VU/Vis2_project/app/public/presentation.csv'
+output_file = 'C:/Users/eliaf/OneDrive/TU Wien/3.Semester/Visualisierung 2/VU/Vis2_project/app/public/demo.csv'
 
 try:
     with open(input_file, mode='r') as infile:
@@ -14,7 +14,7 @@ try:
     rows = data[1:]
 
     # Ensure we don't select more rows than available
-    num_samples = min(10000, len(rows))
+    num_samples = min(1000, len(rows))
 
     # Select random samples
     sampled_rows = random.sample(rows, num_samples)
