@@ -1,19 +1,43 @@
-import useDataParsing from './hooks/useDataParsing.tsx';
-import useNodesAndEdges from './hooks/useNodesAndEdges.tsx';
-import GlobeComponent from './GlobeComponent.tsx';
 import {ReactElement} from 'react';
-
-import useEdgeBundlingWorker from "./hooks/useEdgeBundlingWorker.tsx";
 import { Backdrop, CircularProgress } from '@mui/material';
+import { GlobeComponent } from './GlobeComponent.tsx';
+import {useDataParsing} from "./hooks/useDataParsing.tsx";
+import {useNodesAndEdges} from "./hooks/useNodesAndEdges.tsx";
+import {useEdgeBundlingWorker} from "./hooks/useEdgeBundlingWorker.tsx";
 
-type EdgeBundlingComponentProps = {
+/**
+ * The EdgeBundlingComponentProps type.
+ */
+export type EdgeBundlingComponentProps = {
+    /**
+     * Deroute parameter
+     */
     k: number;
+    /**
+     * Edge weight parameter
+     */
     d: number;
+    /**
+     * Defines curve smoothness
+     */
     numSegments: number;
+    /**
+     * Data set to load for edge bundling
+     */
     file: string;
 };
 
-function EdgeBundlingComponent({ k, d, numSegments, file }: EdgeBundlingComponentProps): ReactElement {
+/**
+ * This component renders the globe and computes the edge bundling.
+ *
+ * @param props - The EdgeBundlingComponentProps object.
+ * @param props.k - Deroute parameter
+ * @param props.d - Edge weight parameter
+ * @param props.numSegments - Defines curve smoothness
+ * @param props.file - Data set to load for edge bundling
+ * @returns The EdgeBundlingComponent component.
+ */
+export function EdgeBundlingComponent({ k, d, numSegments, file }: EdgeBundlingComponentProps): ReactElement {
     const parseData = useDataParsing(file);
     const { nodesMap, edges } = useNodesAndEdges(parseData, d);
     const {flightPaths, loading} = useEdgeBundlingWorker(nodesMap, edges, k);
@@ -34,5 +58,3 @@ function EdgeBundlingComponent({ k, d, numSegments, file }: EdgeBundlingComponen
         </>
     );
 }
-
-export default EdgeBundlingComponent;

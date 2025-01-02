@@ -4,14 +4,31 @@ import {Line2} from 'three/examples/jsm/lines/Line2.js';
 import {LineMaterial} from 'three/examples/jsm/lines/LineMaterial.js';
 import {LineGeometry} from 'three/examples/jsm/lines/LineGeometry.js';
 import {FlightPath} from './EdgeBundling.types.ts';
-import generateBezierCurve from "./utils/generateBezierCurve.ts";
+import {generateBezierCurve} from "./utils/generateBezierCurve.ts";
 
-type GlobeComponentProps = {
+/**
+ * The GlobeComponentProps type.
+ */
+export type GlobeComponentProps = {
+    /**
+     * The flight paths to render.
+     */
     flightPaths: FlightPath[];
+    /**
+     * The number of segments to use for the flight paths.
+     */
     numSegments: number;
 }
 
-function GlobeComponent({ flightPaths, numSegments }: GlobeComponentProps): ReactElement {
+/**
+ * This component renders the globe with the bundled flight paths.
+ *
+ * @param props - The GlobeComponentProps object.
+ * @param props.flightPaths - The flight paths to render.
+ * @param props.numSegments - The number of segments to use for the flight paths.
+ * @returns The GlobeComponent component.
+ */
+export function GlobeComponent({ flightPaths, numSegments }: GlobeComponentProps): ReactElement {
     const globeRef = useRef<GlobeMethods | undefined>(undefined);
 
     const createFlightPathObject = useCallback(
@@ -60,6 +77,13 @@ function GlobeComponent({ flightPaths, numSegments }: GlobeComponentProps): Reac
     );
 }
 
+/**
+ * Interpolates colors between two given colors.
+ * @param startColor - The starting color.
+ * @param endColor - The ending color.
+ * @param steps - The number of steps to interpolate.
+ * @returns An array of interpolated colors.
+ */
 function interpolateColors(
     startColor: number, // Hexadecimal color, e.g., 0xff0000
     endColor: number,   // Hexadecimal color, e.g., 0x00ff00
@@ -89,6 +113,3 @@ function interpolateColors(
     }
     return colors;
 }
-
-
-export default GlobeComponent;

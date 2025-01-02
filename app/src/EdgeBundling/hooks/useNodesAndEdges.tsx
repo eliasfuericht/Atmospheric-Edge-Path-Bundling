@@ -1,8 +1,16 @@
-// Define Node and Edge types
 import {FlightData} from './useDataParsing.tsx';
 import {Edge, Node} from '../EdgeBundling.types.ts';
 import {useMemo} from "react";
 
+/**
+ * This function calculates the haversine distance between two points.
+ * This is the distance between two points on the surface of a sphere.
+ * @param lat1 - Latitude of the first point
+ * @param lon1 - Longitude of the first point
+ * @param lat2 - Latitude of the second point
+ * @param lon2 - Longitude of the second point
+ * @returns The haversine distance between the two points
+ */
 function haversine(
     lat1: number,
     lon1: number,
@@ -20,11 +28,22 @@ function haversine(
     return 2 * R * Math.asin(Math.sqrt(a));
 }
 
+/**
+ * This function converts degrees to radians.
+ * @param degrees - The angle in degrees
+ * @returns The angle in radians
+ */
 function toRadians(degrees: number): number {
     return (degrees * Math.PI) / 180;
 }
 
-function useNodesAndEdges(flightData: FlightData[], d: number) {
+/**
+ * This hook creates nodes and edges from the flight data.
+ * @param flightData - The flight data
+ * @param d - The edge weight parameter
+ * @returns The nodes and edges
+ */
+export function useNodesAndEdges(flightData: FlightData[], d: number) {
     return useMemo(() => {
 
         const nodesMap = new Map<string, Node>();
@@ -97,6 +116,3 @@ function useNodesAndEdges(flightData: FlightData[], d: number) {
     return { nodesMap, edges };
     }, [flightData, d]);
 }
-
-
-export default useNodesAndEdges;

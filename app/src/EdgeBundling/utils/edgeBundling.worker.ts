@@ -1,5 +1,16 @@
 import {ControlPoint, Edge, FlightPath, Node} from '../EdgeBundling.types.ts';
 
+/**
+ * This function performs edge bundling on the given nodes and edges.
+ *
+ * This function uses Dijkstra's algorithm and a min heap to find the shortest path between two nodes.
+ * The path is then used to generate control points for the edge bundling.
+ *
+ * @param nodesMap - The map of nodes
+ * @param edges - The list of edges
+ * @param k - The deroute parameter
+ * @returns The flight paths
+ */
 export const performEdgeBundling = (
     nodesMap: Map<string, Node>,
     edges: Edge[],

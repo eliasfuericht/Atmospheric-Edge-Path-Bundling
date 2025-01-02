@@ -3,8 +3,14 @@ import {useWorker, WORKER_STATUS} from "@koale/useworker";
 import {performEdgeBundling} from "../utils/edgeBundling.worker.ts";
 import {Edge, FlightPath, Node} from "../EdgeBundling.types.ts";
 
-
-function useEdgeBundlingWorker(
+/**
+ * This hook uses a web worker to perform edge bundling asynchronously.
+ * @param nodesMap - The map of nodes.
+ * @param edges - The list of edges.
+ * @param k - The deroute parameter.
+ * @returns The flight paths, loading state, and worker status.
+ */
+export function useEdgeBundlingWorker(
     nodesMap: Map<string, Node>,
     edges: Edge[],
     k: number
@@ -43,6 +49,3 @@ function useEdgeBundlingWorker(
 
     return { flightPaths, loading, status };
 }
-
-
-export default useEdgeBundlingWorker;

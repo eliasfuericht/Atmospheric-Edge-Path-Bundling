@@ -2,18 +2,56 @@ import {Box, FormControl, InputLabel, MenuItem, Select, Slider, Typography} from
 import {ReactElement} from "react";
 import {DataSet} from "../EdgeBundling/EdgeBundling.types.ts";
 
-type UserControlsProps = {
+/** The UserControlsProps type. */
+export type UserControlsProps = {
+    /**
+     * The setter for the deroute parameter.
+     */
     setK: (k: number) => void;
+    /**
+     * The deroute parameter.
+     */
     k: number;
+    /**
+     * The setter for the edge weight parameter.
+     */
     setD: (d: number) => void;
+    /**
+     * The edge weight parameter.
+     */
     d: number;
+    /**
+     * The setter for the number of segments.
+     */
     setNumSegments: (numSegments: number) => void;
+    /**
+     * The number of segments.
+     */
     numSegments: number;
+    /**
+     * The setter for the data set.
+     */
     setDataSet: (dataSet: DataSet) => void;
+    /**
+     * The data set.
+     */
     dataSet: DataSet | '';
 };
 
-function UserControls(
+/**
+ * This component renders the user controls for the edge bundling parameters.
+ *
+ * @param props - The UserControlsProps object.
+ * @param props.setK - The setter for the deroute parameter.
+ * @param props.k - The deroute parameter.
+ * @param props.setD - The setter for the edge weight parameter.
+ * @param props.d - The edge weight parameter.
+ * @param props.setNumSegments - The setter for the number of segments.
+ * @param props.numSegments - The number of segments.
+ * @param props.setDataSet - The setter for the data set.
+ * @param props.dataSet - The data set.
+ */
+export function UserControls(
     { setK, k, setD, d, setNumSegments, numSegments, dataSet, setDataSet }: UserControlsProps
 ): ReactElement {
     return (
@@ -92,5 +130,3 @@ function UserControls(
     </Box>
     );
   }
-
-  export default UserControls;
