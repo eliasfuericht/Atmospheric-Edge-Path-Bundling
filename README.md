@@ -12,11 +12,15 @@ This project demonstrates a visualization of flight data using edge-path bundlin
 
 ## Installation and Setup
 1. Clone the repository.
-2. Install dependencies:
+2. cd into app directory
+   ```bash
+   cd app
+    ```
+3. Install dependencies:
    ```bash
    npm install
     ```
-3. Start the development server:
+4. Start the development server:
    ```bash
    npm run dev
       ```
