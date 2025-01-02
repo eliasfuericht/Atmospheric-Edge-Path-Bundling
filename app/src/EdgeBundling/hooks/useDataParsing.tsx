@@ -1,17 +1,48 @@
 import {useCallback, useEffect, useState} from 'react';
 import Papa, {ParseResult} from 'papaparse';
 
+/**
+ * The FlightData type.
+ * In order to work with the CSV library, the *FlightData*
+ * members are named after the columns in the CSV data file.
+ */
 export type FlightData = {
+    /**
+     * The index of the flight entry.
+     */
     index: string;
+    /**
+     * The source airline code.
+     */
     Source_airport: string;
+    /**
+     * The destination airline code.
+     */
     Destination_airport: string;
+    /**
+     * The source airport name.
+     */
     Source_Latitude: string;
+    /**
+     * The source airport name.
+     */
     Source_Longitude: string;
+    /**
+     * The destination airport name.
+     */
     Destination_Latitude: string;
+    /**
+     * The destination airport name.
+     */
     Destination_Longitude: string;
 };
 
-function useDataParsing( file: string ): FlightData[] {
+/**
+ * This hook fetches and parses the data from the given file.
+ *  @param file - The file to fetch and parse.
+ *  @returns The parsed data.
+ */
+export function useDataParsing( file: string ): FlightData[] {
         const [parsedData, setParsedData] = useState<FlightData[]>([]);
 
         const parseData = useCallback((csvText: string) => {
@@ -49,5 +80,3 @@ function useDataParsing( file: string ): FlightData[] {
 
         return parsedData; // Will be empty if file is not found
     }
-
-export default useDataParsing;

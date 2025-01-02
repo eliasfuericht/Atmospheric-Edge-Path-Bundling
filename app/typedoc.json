@@ -1,0 +1,14 @@
+{
+  "entryPoints": ["src"],
+  "entryPointStrategy": "expand",
+  "out": "../submission/doc",
+  "exclude": [
+    "**/__tests__/**",
+    "**/*.test.ts",
+    "src/main.tsx",
+    "src/vite-env.d.ts"
+  ],
+  "name": "Atmospheric Edge-Path Bundling",
+  "readme": "../README.md",
+  "tsconfig": "tsconfig.json"
+}

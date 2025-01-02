@@ -1,6 +1,12 @@
 import {Coordinate} from "../EdgeBundling.types.ts";
 
-// Interpolate between two points
+/**
+ * This function interpolates between two points.
+ * @param p0 - The first point
+ * @param p1 - The second point
+ * @param t - The interpolation parameter
+ * @returns The interpolated point
+ */
 function interpolate(p0: Coordinate, p1: Coordinate, t: number): Coordinate {
     const oneMinusT = 1 - t; // Precompute for efficiency
     return {
@@ -9,8 +15,13 @@ function interpolate(p0: Coordinate, p1: Coordinate, t: number): Coordinate {
     };
 }
 
-// Compute a point on a Bézier curve using De Casteljau's algorithm
-function deCasteljau(t: number, controlPoints: Coordinate[]): Coordinate {
+/**
+ * This function computes a point on a Bézier curve using De Casteljau's algorithm.
+ * @param t - The interpolation parameter
+ * @param controlPoints - The control points of the Bézier curve
+ * @returns The point on the Bézier curve
+ */
+export function deCasteljau(t: number, controlPoints: Coordinate[]): Coordinate {
     let points = controlPoints;
 
     while (points.length > 1) {
@@ -19,5 +30,3 @@ function deCasteljau(t: number, controlPoints: Coordinate[]): Coordinate {
 
     return points[0];
 }
-
-export default deCasteljau;

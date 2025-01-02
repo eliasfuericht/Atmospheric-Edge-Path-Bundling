@@ -1,9 +1,14 @@
 import { useState } from 'react';
-import EdgeBundlingComponent from './EdgeBundling/EdgeBundlingComponent.tsx';
-import UserControls from "./GUI/UserControls.tsx";
 import {DataSet} from "./EdgeBundling/EdgeBundling.types.ts";
+import {EdgeBundlingComponent} from "./EdgeBundling/EdgeBundlingComponent.tsx";
+import { UserControls } from './GUI/UserControls.tsx';
 
-function App() {
+/**
+ * This component renders the EdgeBundlingComponent and UserControls.
+ * Here, the default deroute parameter (k), edge weight parameter (d), curve smoothness (numSegments), and the data set (file) can be set.
+ * @returns The App component.
+ */
+export function App() {
 
   const [k, setK] = useState(4.0); // Deroute parameter
   const [d, setD] = useState(2.0); // Edge weight parameter
@@ -17,5 +22,3 @@ function App() {
       </div>
   );
 }
-
-export default App;
