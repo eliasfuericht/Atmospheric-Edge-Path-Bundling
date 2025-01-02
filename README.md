@@ -12,7 +12,7 @@ This project demonstrates a visualization of flight data using edge-path bundlin
 
 ## Installation and Setup
 1. Clone the repository.
-2. cd into app directory
+2. cd into app directory:
    ```bash
    cd app
     ```
@@ -24,3 +24,5 @@ This project demonstrates a visualization of flight data using edge-path bundlin
    ```bash
    npm run dev
       ```
+## Try it out live:
+https://eliasfuericht.github.io/Vis2_project/
