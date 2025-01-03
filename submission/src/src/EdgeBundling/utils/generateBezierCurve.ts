@@ -1,8 +1,14 @@
 
-import deCasteljau from "./deCasteljau.ts";
 import {Coordinate} from "../EdgeBundling.types.ts";
+import { deCasteljau } from "./deCasteljau.ts";
 
-// Convert latitude and longitude to 3D coordinates (spherical projection)
+/**
+ * This function converts latitude and longitude to 3D coordinates (spherical projection).
+ * @param lat - The latitude
+ * @param lng - The longitude
+ * @param radius - The radius of the sphere (default: 100)
+ * @returns The 3D coordinates
+ */
 function latLngToXYZ(lat: number, lng: number, radius = 100): { x: number; y: number; z: number } {
     const latRad = (lat * Math.PI) / 180.0;
     const lngRad = (lng * Math.PI) / 180.0;
@@ -14,8 +20,13 @@ function latLngToXYZ(lat: number, lng: number, radius = 100): { x: number; y: nu
     };
 }
 
-// Function to generate the Bézier curve for any number of control points
-function generateBezierCurve(coords: Coordinate[], numPoints = 100): number[] {
+/**
+ * This function generates a Bézier curve from the given control points.
+ * @param coords - The control points
+ * @param numPoints - The number of points to generate
+ * @returns The Bézier curve as a list of 3D coordinates
+ */
+export function generateBezierCurve(coords: Coordinate[], numPoints = 100): number[] {
     return Array.from({ length: numPoints + 1 }, (_, i) => {
         const t = i / numPoints;
         const bezierPoint = deCasteljau(t, coords);
@@ -32,5 +43,3 @@ function generateBezierCurve(coords: Coordinate[], numPoints = 100): number[] {
         return [scaledPoint.x, scaledPoint.y, scaledPoint.z];
     }).flat();
 }
-
-export default generateBezierCurve;
