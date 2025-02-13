@@ -1,4 +1,5 @@
 # Atmospheric Edge-Path Bundling
+![image](https://github.com/user-attachments/assets/16ff1f9b-226a-48df-ae35-8a1f4a50a231)
 
 ## Introduction
 This project demonstrates a visualization of flight data using edge-path bundling on a globe.
