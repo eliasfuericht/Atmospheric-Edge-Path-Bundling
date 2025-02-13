@@ -56,6 +56,8 @@ export function GlobeComponent({ flightPaths, numSegments }: GlobeComponentProps
                 vertexColors: true, // Enable vertex-based coloring
                 linewidth: 0.175,
                 worldUnits: true,
+                transparent: true,
+                opacity: 0.20
             });
 
         return new Line2(geometry, material);
