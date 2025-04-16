@@ -135,10 +135,10 @@ export enum DataSet {
     /**
      * A light data set for quick testing/illustration.
      */
-    DEMO = '/Vis2_project/demo.csv',
+    DEMO = '/Atmospheric-Edge-Path-Bundling/demo.csv',
 
     /**
      * A larger data set for final demo.
      */
-    PRESENTATION = '/Vis2_project/presentation.csv'
+    PRESENTATION = '/Atmospheric-Edge-Path-Bundling/presentation.csv'
 }
