@@ -26,4 +26,4 @@ This project demonstrates a visualization of flight data using edge-path bundlin
    npm run dev
       ```
 ## Try it out live:
-https://eliasfuericht.github.io/Vis2_project/
+https://eliasfuericht.github.io/Atmospheric-Edge-Path-Bundling/
