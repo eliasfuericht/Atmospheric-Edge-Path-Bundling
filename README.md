@@ -4,6 +4,8 @@
 ## Introduction
 This project demonstrates a visualization of flight data using edge-path bundling on a globe.
 
+Test it out live: https://eliasfuericht.github.io/Atmospheric-Edge-Path-Bundling/
+
 ## Technologies
 - TypeScript for type-safe JavaScript development
 - React for modular components
@@ -25,5 +27,3 @@ This project demonstrates a visualization of flight data using edge-path bundlin
    ```bash
    npm run dev
       ```
-## Try it out live:
-https://eliasfuericht.github.io/Atmospheric-Edge-Path-Bundling/
